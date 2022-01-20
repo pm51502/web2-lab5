@@ -1,0 +1,29 @@
+{
+  "name": "web2-lab5",
+  "version": "1.0.0",
+  "description": "web2 lab5",
+  "main": "server.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pm51502/web2-lab5.git"
+  },
+  "keywords": [
+    "pwa"
+  ],
+  "author": "petar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pm51502/web2-lab5/issues"
+  },
+  "homepage": "https://github.com/pm51502/web2-lab5#readme"
+}
