@@ -1,0 +1,10 @@
+.padded {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.flex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}

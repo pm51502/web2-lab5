@@ -7,15 +7,71 @@
     <title>PWA</title>
     <link rel="stylesheet" href="./assets/css/site.css">
     <link rel="manifest" href="./manifest.json">
-    <link rel="apple-touch-icon" href="/assets/img/ios/100.png">
     <meta name="theme-color" content="#94b8b8">
+    <link rel="apple-touch-icon" href="/assets/img/icon-96x96.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-    <h1>Hello Rope</h1>
+    <nav>
+        <div class="nav-wrapper container">
+            <a href="./index.html" class="brand-logo">CatsPWA</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="./assets/pages/addFact.html">AddFact</a></li>
+                <li><a href="./assets/pages/geo.html">Geo</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="flex-header">
+            <h2>Cat Facts</h2>
+            <a class="btn-floating" id="subscribe-btn"><i class="small material-icons">notifications</i></a>
+        </div>
+        <div id="facts">
+            <template id="factTemplate">
+                <div class="col s12 m7">
+                    <div class="card horizontal">
+                        <div class="card-image padded">
+                            <i class="small material-icons">pets</i>
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <p>fact-text</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
     <script>
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('SW registered!', reg))
-            .catch(err => console.error('Error registering service worker', err));
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js', {type: 'module'})
+                .then(reg => console.log('service worker registered'))
+                .catch(err => console.log('service worker not registered', err));
+        }
+        fetch('/api/facts').then(res => {
+            if(res.ok) {
+                res.json().then(data => {
+                    var factsDiv = document.querySelector('#facts');
+                    console.log('FETCHED: ' + data);
+                    data.forEach(fact => {
+                        console.log(fact);
+                        var template = document.querySelector('#factTemplate');
+                        var clone = template.content.cloneNode(true);
+                        var p = clone.querySelector('p');
+                        p.textContent = fact.fact;
+                        factsDiv.appendChild(clone);
+                    });
+                });
+            }
+        }).catch(error => {
+            console.log(error);
+        });
     </script>
+    <script src="./assets/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
